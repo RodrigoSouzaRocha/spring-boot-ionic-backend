@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.systemlog.domain.Categoria;
 import com.systemlog.repositories.CategoriaRepository;
+import com.systemlog.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -14,10 +15,10 @@ public class CategoriaService {
 	@Autowired // Autowired ele auto instancia a depndencia pelo spring 
 	public CategoriaRepository categoriaRepository;
 	
-	public Categoria buscar (Long id) {
+	public Categoria buscar(Long id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
 		
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID:" +  id  + ", tipo: " + Categoria.class.getName()));
 		
 	}
 
