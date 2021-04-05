@@ -1,4 +1,4 @@
-package com.systemlog.domain;
+package com.systemlog.domain.enums;
 
 public enum TipoCliente {
 	
