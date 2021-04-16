@@ -15,7 +15,7 @@ public class PedidoService {
 	@Autowired // Autowired ele auto instancia a depndencia pelo spring 
 	public PedidoRepository pedidoRepository;
 	
-	public Pedido buscar(Long id) {
+	public Pedido find(Long id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID:" +  id  + ", tipo: " + Pedido.class.getName()));

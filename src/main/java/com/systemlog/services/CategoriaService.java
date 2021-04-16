@@ -15,7 +15,7 @@ public class CategoriaService {
 	@Autowired // Autowired ele auto instancia a depndencia pelo spring 
 	public CategoriaRepository categoriaRepository;
 	
-	public Categoria buscar(Long id) {
+	public Categoria find(Long id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID:" +  id  + ", tipo: " + Categoria.class.getName()));
@@ -25,6 +25,12 @@ public class CategoriaService {
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return categoriaRepository.save(obj);
+	}
+
+	public Categoria update(Categoria obj) {		
+		find(obj.getId());
+		return categoriaRepository.save(obj);
+
 	}
 
 }
