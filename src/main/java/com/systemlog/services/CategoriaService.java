@@ -3,10 +3,12 @@ package com.systemlog.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.systemlog.domain.Categoria;
 import com.systemlog.repositories.CategoriaRepository;
+import com.systemlog.services.exceptions.DataIntegretyException;
 import com.systemlog.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,6 +33,16 @@ public class CategoriaService {
 		find(obj.getId());
 		return categoriaRepository.save(obj);
 
+	}
+
+	public void delete(Long id) {		
+		find(id);
+		try {
+			categoriaRepository.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegretyException("Não é possivel excluir uma categoria que possui produtos! ");
+		}
+	
 	}
 
 }
