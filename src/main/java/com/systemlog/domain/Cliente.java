@@ -54,7 +54,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfcnpj = cpfcnpj;
-		this.tipoCliente = tipoCliente;
+		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente; // condição ternaria
 	}
 
 	public Long getId() {

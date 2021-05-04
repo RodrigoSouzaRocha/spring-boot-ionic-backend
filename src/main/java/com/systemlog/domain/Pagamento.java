@@ -37,7 +37,7 @@ public abstract class Pagamento implements Serializable { // abstract serve para
 	public Pagamento(Long id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado;
+		this.estado = (estado == null) ? null : estado; // condição ternaria
 		this.pedido = pedido;
 	}
 
