@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class Cliente implements Serializable {
 	private TipoCliente tipoCliente;
 	
 	//@JsonManagedReference retirado devido problema no curso !
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade referencia as operações dentro do banco de dados  
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	//@JsonBackReference os pedidos dos clientes não serão serializados na chamada do serviço por cliente ( Deu problema no curso )
