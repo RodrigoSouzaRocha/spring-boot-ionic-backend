@@ -103,7 +103,17 @@ public class Pedido implements Serializable {
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
+
+	// Declaro o valor total do pedido 
+	public double getValorTotal() {
+		Double soma = 0.00;
+		
+		for (ItemPedido item : itens) {
+			soma = soma + item.getSubTotal();
+		}
+		
+		return soma;
+	}
 
 	@Override
 	public int hashCode() {

@@ -11,15 +11,17 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.systemlog.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // Single (agrupo todos os dados das tabelas que erdam o pagamento dentro de uma unica tabela), joined (Cria duas tabelas diferentes para cada tipo de pagamento)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable { // abstract serve para que eu não consiga instancia-la sem antes instancia uma subClass
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY) essa anotation não entra aqui pos o pedido devera contar o mesmo id do pagamento
+//	@GeneratedValue(strategy = GenerationType.IDENTITY) essa anotation não entra aqui, pois, o pedido devera contar o mesmo id do pagamento
 	private Long id;
 	private EstadoPagamento estado;
 	
