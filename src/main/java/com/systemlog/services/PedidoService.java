@@ -72,7 +72,7 @@ public class PedidoService {
 		
 		itemPedidoRepository.saveAll(obj.getItens());
 		
-		emailService.sendOrderConfirmationEmail(obj); // envia um email de confirmaçao ao cliente
+		emailService.sendOrderConfirmationHtmlEmail(obj); // envia um email de confirmaçao ao cliente
 		
 		return obj;
 	}

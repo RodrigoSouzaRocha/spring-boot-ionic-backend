@@ -23,6 +23,7 @@ public abstract class Pagamento implements Serializable { // abstract serve para
 	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY) essa anotation não entra aqui, pois, o pedido devera contar o mesmo id do pagamento
 	private Long id;
+	
 	private EstadoPagamento estado;
 	
 	//@JsonBackReference

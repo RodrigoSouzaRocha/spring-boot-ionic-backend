@@ -7,9 +7,10 @@ public enum EstadoPagamento {
 	CANCELADO(2, "Cancelado");
 	
 	private int codPagamento;
+	
 	private String labelPagamento;
 	
-	private EstadoPagamento (int codPagamento, String labelPagamento) {
+	private EstadoPagamento (int codPagamento, String labelPagamento) { 
 		this.codPagamento = codPagamento;
 		this.labelPagamento = labelPagamento;
 	}
