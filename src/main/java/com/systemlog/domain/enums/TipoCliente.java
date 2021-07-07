@@ -5,36 +5,37 @@ public enum TipoCliente {
 	PESSOA_FISICA(0, "PESSOA FÍSICA"),
 	PESSOA_JURIDICA(1, "PESSOA JURÍDICA");
 	
-	private int codPessoa;
-	private String labelPessoa;
+	private int cod;
 	
-	private TipoCliente (int codPessoa, String labelPessoa) {
-		this.codPessoa = codPessoa;
-		this.labelPessoa = labelPessoa;
+	private String descricao;
+	
+	private TipoCliente (int cod, String descricao) { 
+		this.cod = cod;
+		this.descricao = descricao;
 	}
 
-	public int getCodPessoa() {
-		return codPessoa;
+	public int getCod() {
+		return cod;
 	}
 
-	public String getLabelPessoa() {
-		return labelPessoa;
+	public String getDescricao() {
+		return descricao;
 	}
 	
-	public static TipoCliente toEnum(Integer codPessoa) { //static você consegue rodar o objeto mesmo não instanciado 
+	public static TipoCliente toEnum(Integer cod) { //static você consegue rodar o objeto mesmo não instanciado 
 		
-		if (codPessoa == null)
+		if (cod == null)
 			return null;
 		
-		for (TipoCliente clienteTipo : TipoCliente.values()) {
+		for (TipoCliente tipo : TipoCliente.values()) {
 			
-			if( codPessoa.equals(clienteTipo.getCodPessoa()) ) {
-				return clienteTipo;
+			if( cod.equals(tipo.getCod()) ) {
+				return tipo;
 			}
 			
 		}
 		
-		throw new IllegalArgumentException("ID inválido: " + codPessoa);
+		throw new IllegalArgumentException("ID inválido: " + cod);
 
 	}
 

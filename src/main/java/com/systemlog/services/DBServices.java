@@ -20,6 +20,7 @@ import com.systemlog.domain.PagamentoComCartao;
 import com.systemlog.domain.Pedido;
 import com.systemlog.domain.Produto;
 import com.systemlog.domain.enums.EstadoPagamento;
+import com.systemlog.domain.enums.Perfil;
 import com.systemlog.domain.enums.TipoCliente;
 import com.systemlog.repositories.CategoriaRepository;
 import com.systemlog.repositories.CidadeRepository;
@@ -118,14 +119,20 @@ public class DBServices {
 		
 		Cliente cli1 = new Cliente(null, "Maria silva", "rodrigo.souza@complog.com.br", "36378912377", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("2763323", "93838393"));
+
+		Cliente cli2 = new Cliente(null, "Rodrigo Souza", "rodrigosouzajava@gmail.com.br", "41988799821", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("41611905", "987356382"));
+		cli2.addPerfil(Perfil.ADMIN);
 		
 		Endereco e1 = new Endereco(null, "Rua flores", "300", "apt 303", "jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida matos", "105", "sala 800", "centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida trindade", "122", null, "centro", "064040326", cli2, c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2, e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		

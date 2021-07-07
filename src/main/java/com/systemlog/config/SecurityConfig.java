@@ -16,10 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	private Environment env;
-	
+
+ 	@Autowired
+ 	private Environment env;
+ 	
 //	efetua a liberações dos metodos que poderam ser acessados sem segurança
 	public static final String[] PUBLIC_MATCHERS = {
 			"/h2-console/**"
@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	efetua a liberações dos metodos que poderam ser acessados sem segurança
 	public static final String[] PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
-			"/categorias/**"
+			"/categorias/**",
+			"/clientes/**"
 	};
 
 	
@@ -36,17 +37,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
  * 	Metodo necessario para que consigamos acessar os outros serviços
  * 	
  * 	http.cors().and().csrf().disable(); ( Desavilitamos o csrf pois não trabalharemos com sistemas em sessão, caso contrario será necessario habilita-lo e configura-lo ) 
+ *
  * 	http.authorizeRequests().antMatchers("PUBLIC_MATCHERS")permitAll(permite o acesso do que esta no vetor ).anyRequest().authenticated( Diz que é necessario ter acesso para os outros endPoints )
- * 
+ *
+ *  --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ *  Caso o console do banco h2 não funcione na base de teste adicionar o comando a baixo 
+ *	
+ *	@Autowired
+ *	private Environment env;
+ *	
+ *	if(Arrays.asList(env.getActiveProfiles()).contains("test"))			
+ *		http.headers().frameOptions().disable();
+ *  --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ *	
  *	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); (Dasabilita a criação de sessão pelo back-end) 
+ *
  */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		if(Arrays.asList(env.getActiveProfiles()).contains("test"))			
-			http.headers().frameOptions().disable();
-		
-		http.cors().and().csrf().disable();
+	 	
+	 	if(Arrays.asList(env.getActiveProfiles()).contains("test"))			
+	 		http.headers().frameOptions().disable();
+	 	
+		http.cors().and().csrf().disable(); 
 		
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()

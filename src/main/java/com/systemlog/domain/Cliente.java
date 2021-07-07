@@ -11,12 +11,14 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.systemlog.domain.enums.Perfil;
 import com.systemlog.domain.enums.TipoCliente;
 
 @Entity
@@ -49,19 +51,31 @@ public class Cliente implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "telefone")
 	private Set<String> Telefones = new HashSet<>();
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="Cliente_perfil")
+	private List<Perfil> perfis;
+
 	
 	public Cliente() {
+		this.perfis = new ArrayList<Perfil>();
 		
+		this.perfis.add(Perfil.CLIENTE);		
 	}
 
 	public Cliente(Long id, String nome, String email, String cpfcnpj, TipoCliente tipoCliente, String senha) {
 		super();
+
+		this.perfis = new ArrayList<Perfil>();
+
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfcnpj = cpfcnpj;
 		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente; // condição ternaria
 		this.senha = senha;
+		this.perfis.add(Perfil.CLIENTE);
+
 	}
 
 	public Long getId() {
@@ -134,6 +148,14 @@ public class Cliente implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}	
+
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil);
 	}
 
 	@Override
