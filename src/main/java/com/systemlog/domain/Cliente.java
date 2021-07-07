@@ -33,6 +33,9 @@ public class Cliente implements Serializable {
 	private String email;
 	
 	private TipoCliente tipoCliente;
+
+	@JsonIgnore
+	private String senha;
 	
 	//@JsonManagedReference retirado devido problema no curso !
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade referencia as operações dentro do banco de dados  
@@ -51,13 +54,14 @@ public class Cliente implements Serializable {
 		
 	}
 
-	public Cliente(Long id, String nome, String email, String cpfcnpj, TipoCliente tipoCliente) {
+	public Cliente(Long id, String nome, String email, String cpfcnpj, TipoCliente tipoCliente, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfcnpj = cpfcnpj;
 		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente; // condição ternaria
+		this.senha = senha;
 	}
 
 	public Long getId() {
@@ -122,6 +126,14 @@ public class Cliente implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
