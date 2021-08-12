@@ -72,5 +72,9 @@ public class UserSpringSecurity implements UserDetails {
 		// TODO Se o usuario esta ativo por padrão estará ativo
 		return true;
 	}
+	
+	public boolean hasRole(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
 
 }

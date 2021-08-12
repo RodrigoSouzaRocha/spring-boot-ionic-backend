@@ -33,7 +33,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 		String header = request.getHeader("Authorization"); // salva os parametros passados no heador na chave (Autorization)
 		
 		if(header != null && header.startsWith("Bearer ")) { // verifica se o parametro consumido do header é igual a (bearer ) = padrão defino na construção do sistema 
-			UsernamePasswordAuthenticationToken auth = getAuthentication(request, header.substring(7)); // invoca o metodo getAuthentication passando a chave do token de autorização
+			UsernamePasswordAuthenticationToken auth = getAuthentication(header.substring(7)); // invoca o metodo getAuthentication passando a chave do token de autorização
 		
 			if(auth != null)
 				SecurityContextHolder.getContext().setAuthentication(auth);
@@ -44,7 +44,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 		
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, String token) {
+	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
 		if(jwtUtil.tokenValido(token)) {
 			String username = jwtUtil.getUsername(token);
 			UserDetails user = userDetailsService.loadUserByUsername(username);
